@@ -4,8 +4,8 @@ import { ReceiptItem } from './ReceiptItem';
 import Utils from './Utils';
 
 export class ShoppingBasket {
-  readonly basicTax = 10;
-  readonly importDuty = 5;
+  private readonly basicTax = 10;
+  private readonly importDuty = 5;
 
   constructor(public shoppingBasket: Product[] = []) {}
 
@@ -63,11 +63,13 @@ export class ShoppingBasket {
     let itemsString: String = '';
 
     receipt.receiptItems.forEach((item) => {
-      itemsString += `${item.quantity} ${
-        item.name
-      }: ${item.getTotalPricePerItem()}\n`;
+      itemsString += `${item.quantity} ${item.name}: ${item
+        .getTotalPricePerItem()
+        .toFixed(2)}\n`;
     });
 
-    return `${itemsString}Sales Taxes: ${receipt.salesTaxes}\nTotal: ${receipt.total}`;
+    return `${itemsString}Sales Taxes: ${receipt.salesTaxes.toFixed(
+      2
+    )}\nTotal: ${receipt.total.toFixed(2)}`;
   }
 }

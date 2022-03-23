@@ -17,7 +17,7 @@ export class ReceiptItem extends Product {
     );
   }
 
-  getTaxAmountPerItem() {
+  private getTaxAmountPerItem() {
     return (
       Utils.toRoundedCurrency((this.price * this.taxRate) / 100) * this.quantity
     );
