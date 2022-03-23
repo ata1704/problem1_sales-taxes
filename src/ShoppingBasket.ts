@@ -1,4 +1,5 @@
 import { Product, ProductCategory } from './Product';
+import { Receipt } from './Receipt';
 import { ReceiptItem } from './ReceiptItem';
 
 export class ShoppingBasket {
@@ -11,16 +12,16 @@ export class ShoppingBasket {
     this.shoppingBasket.push(shoppingItem);
   }
 
-  checkOut() {
+  checkOut(): Receipt {
     const receiptItems: ReceiptItem[] = [];
-    let salesTaxes: number;
-    let total: number;
+    let salesTaxes: number = 0;
+    let total: number = 0;
 
     this.shoppingBasket.forEach((shoppingBasketItem) => {
       let taxRate = 0;
 
       if (
-        [
+        ![
           ProductCategory.Book,
           ProductCategory.Food,
           ProductCategory.MedicalProduct,
@@ -38,6 +39,19 @@ export class ShoppingBasket {
           taxRate
         )
       );
+
+      // TODO: Implement a better solution with rounding up to the nearest 0.05 per item.
+      const taxAmount =
+        taxRate !== 0
+          ? ((shoppingBasketItem.price * taxRate) / 100) *
+            shoppingBasketItem.quantity
+          : 0;
+
+      salesTaxes += taxAmount;
+      total +=
+        taxAmount + shoppingBasketItem.price * shoppingBasketItem.quantity;
     });
+
+    return new Receipt(receiptItems, salesTaxes, total);
   }
 }
