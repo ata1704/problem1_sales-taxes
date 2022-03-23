@@ -10,11 +10,12 @@ export class ReceiptItem extends Product {
     super(name, quantity, price);
   }
 
-  // TODO: Implement a better solution with rounding up to the nearest 0.05 per item.
   getTotalPricePerItem() {
-    return (
-      ((this.price * (this.taxRate + 100)) / 100) *
-      this.quantity
-    ).toFixed(2);
+    return (this.price * this.quantity + this.getTaxAmountPerItem()).toFixed(2);
+  }
+
+  // TODO: Implement a better solution with rounding up to the nearest 0.05 per item.
+  getTaxAmountPerItem() {
+    return ((this.price * this.taxRate) / 100) * this.quantity;
   }
 }
