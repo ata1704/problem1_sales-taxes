@@ -14,6 +14,6 @@ describe('ShoppingBasket testing', () => {
       new Product('book', 1, 0.85, ProductCategory.Food, false)
     );
 
-    expect(shoppingBasket.checkOut().total).toBe(29.829);
+    expect(shoppingBasket.checkOut().total.toFixed(2)).toBe('29.83');
   });
 });

@@ -54,4 +54,17 @@ export class ShoppingBasket {
 
     return new Receipt(receiptItems, salesTaxes, total);
   }
+
+  getReceipt() {
+    const receipt = this.checkOut();
+    let itemsString: String = '';
+
+    receipt.receiptItems.forEach((item) => {
+      itemsString += `${item.quantity} ${
+        item.name
+      }: ${item.getTotalPricePerItem()}\n`;
+    });
+
+    return `${itemsString}Sales Taxes: ${receipt.salesTaxes}\nTotal: ${receipt.total}`;
+  }
 }
