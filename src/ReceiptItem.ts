@@ -1,4 +1,5 @@
 import { Product } from './Product';
+import Utils from './Utils';
 
 export class ReceiptItem extends Product {
   constructor(
@@ -11,11 +12,14 @@ export class ReceiptItem extends Product {
   }
 
   getTotalPricePerItem() {
-    return this.price * this.quantity + this.getTaxAmountPerItem();
+    return Utils.floatRound(
+      this.price * this.quantity + this.getTaxAmountPerItem()
+    );
   }
 
-  // TODO: Implement a better solution with rounding up to the nearest 0.05 per item.
   getTaxAmountPerItem() {
-    return ((this.price * this.taxRate) / 100) * this.quantity;
+    return (
+      Utils.toRoundedCurrency((this.price * this.taxRate) / 100) * this.quantity
+    );
   }
 }

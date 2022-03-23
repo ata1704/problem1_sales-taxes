@@ -1,6 +1,7 @@
 import { Product, ProductCategory } from './Product';
 import { Receipt } from './Receipt';
 import { ReceiptItem } from './ReceiptItem';
+import Utils from './Utils';
 
 export class ShoppingBasket {
   readonly basicTax = 10;
@@ -40,16 +41,18 @@ export class ShoppingBasket {
         )
       );
 
-      // TODO: Implement a better solution with rounding up to the nearest 0.05 per item.
       const taxAmount =
         taxRate !== 0
-          ? ((shoppingBasketItem.price * taxRate) / 100) *
-            shoppingBasketItem.quantity
+          ? Utils.toRoundedCurrency(
+              (shoppingBasketItem.price * taxRate) / 100
+            ) * shoppingBasketItem.quantity
           : 0;
-
-      salesTaxes += taxAmount;
-      total +=
-        taxAmount + shoppingBasketItem.price * shoppingBasketItem.quantity;
+      salesTaxes = Utils.floatRound(salesTaxes + taxAmount);
+      total = Utils.floatRound(
+        total +
+          taxAmount +
+          shoppingBasketItem.price * shoppingBasketItem.quantity
+      );
     });
 
     return new Receipt(receiptItems, salesTaxes, total);
