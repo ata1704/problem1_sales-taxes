@@ -1,0 +1,21 @@
+{
+  "name": "problem1_sales-taxes",
+  "version": "1.0.0",
+  "description": "Coding challenge for a job application",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "coverage": "jest --coverage"
+  },
+  "author": "Marcel Schalk",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.6.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.3"
+  }
+}
